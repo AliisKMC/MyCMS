@@ -86,7 +86,7 @@ namespace MyCMS.Controllers
 
             User user = new User();
             user.UserName = vmRegister.UserName;
-            user.Password = vmRegister.Password;
+            user.Password = PasswordHasher.HashPassword(vmRegister.Password);
             user.Email = vmRegister.Email.ToLower().Trim();            
             user.CreateDate= DateTime.Now;
             user.IsDelete = false;
