@@ -1,0 +1,33 @@
+﻿@model RegisterViewModel
+@{
+    ViewBag.Title = "ثبت نام";
+}
+
+<h2>ثبت نام در سایت</h2>
+<hr />
+<form method="post">
+    <div class="form-group">
+        <label for="exampleInputEmail1">نام کاربری</label>
+        <input asp-for="UserName" class="form-control" placeholder="نام کاربری را وارد کنید">
+    </div>
+    <div class="form-group">
+        <label for="exampleInputEmail1">ایمیل</label>
+        <input asp-for="Email" class="form-control" placeholder="ایمیل را وارد کنید">
+    </div>
+    <div class="form-group">
+        <label for="exampleInputEmail1">کلمه عبور</label>
+        <input asp-for="Password" class="form-control" placeholder="کلمه عبور را وارد کنید">
+    </div>
+    <div class="form-group">
+        <label for="exampleInputEmail1">تکرار کلمه عبور</label>
+        <input asp-for="RePassword" class="form-control" placeholder=" تکرار کلمه عبور را وارد کنید">
+    </div>
+    <button type="submit" class="btn btn-success">ثبت نام</button>
+    <div asp-validation-summary="All" class="text-danger"></div>
+</form>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}
+

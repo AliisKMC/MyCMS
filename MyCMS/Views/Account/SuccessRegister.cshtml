@@ -1,0 +1,10 @@
+﻿@using MyCMS.Models.Model;
+@model User
+
+<div class="alert alert-success">
+    <h2>@Model.UserName خوش آمدید !</h2>
+    <p>با تشکر از ثبت نام شما میتوانید از طریق گرینه
+        <a asp-controller="Account" asp-action="Login"> ورود به سایت </a>
+        وارد سایت شوید .
+    </p>
+</div>
