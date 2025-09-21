@@ -11,7 +11,7 @@ using System.Security.Claims;
 namespace MyCMS.Controllers
 {
     public class AccountController : Controller
-    {
+    {       
         IUserService _userService;
         public AccountController(IUserService userService)
         {
@@ -42,6 +42,7 @@ namespace MyCMS.Controllers
                 ModelState.AddModelError("EmailOrUserName", "کاربری یافت نشد!");
                 return View(vmLogin);
             }
+                      
 
             //TODO Login
             List<Claim> claims = new List<Claim>()
@@ -54,7 +55,7 @@ namespace MyCMS.Controllers
 
             var properties = new AuthenticationProperties
             {
-                IsPersistent = vmLogin.RememberMe
+                IsPersistent = vmLogin.RememberMe 
             };
 
             HttpContext.SignInAsync(principal, properties);
