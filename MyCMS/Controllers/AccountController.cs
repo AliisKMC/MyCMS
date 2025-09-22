@@ -59,7 +59,7 @@ namespace MyCMS.Controllers
             };
 
             HttpContext.SignInAsync(principal, properties);
-            return View();            
+            return Redirect("/");            
         }
         #endregion
 
