@@ -20,4 +20,8 @@
     <ProjectReference Include="..\MyCMS.Utilities\MyCMS.Utilities.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Shared\Components\" />
+  </ItemGroup>
+
 </Project>

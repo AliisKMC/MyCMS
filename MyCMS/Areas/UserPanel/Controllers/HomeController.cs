@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MyCMS.DataAccess.Services;
 using MyCMS.Models.ViewModels;
 using MyCMS.Utilities.Security;
@@ -7,6 +8,7 @@ using System.Security.Claims;
 namespace MyCMS.Areas.UserPanel.Controllers
 { 
     [Area("UserPanel")]
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly IUserService _UserService;
