@@ -48,18 +48,8 @@
         <div class="container">
             <span><i class="fa fa-th-list"></i></span>
             <ul>
-                <li><a href=""> صفحه اصلی </a></li>
-                @if (User.Identity.IsAuthenticated)
-                {
-                    <li><a asp-area="UserPanel"> @User.Identity.Name خوش آمدید ! </a></li>
-                    <li><a class="text-danger" asp-controller="Account" asp-action="LogOut"> خروج </a></li>
-
-                }
-                else
-                {
-                    <li><a asp-controller="Account" asp-action="Register"> ثبت نام </a></li>
-                    <li><a asp-controller="Account" asp-action="Login"> ورود به سایت </a></li>
-                }
+                <li><a href="/"> صفحه اصلی </a></li>
+                <partial name="_LoggedInUser" />
                 <li>
                     <span>گروه های خبری</span>
                     <ul>
@@ -167,10 +157,16 @@
         </div>
     </footer>
 
+    <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/owl.carousel.js"></script>
     <script src="/js/script.js"></script>
-    <script src="/js/jquery.min.js"></script>
     @RenderSection("Scripts", false)
+
+    @* <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/owl.carousel.js"></script>
+    <script src="/js/script.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    @RenderSection("Scripts", false) *@
 </body>
 </html>
