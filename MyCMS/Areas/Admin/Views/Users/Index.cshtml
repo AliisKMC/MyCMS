@@ -1,0 +1,66 @@
+﻿@model IEnumerable<MyCMS.Models.Model.User>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a class="btn btn-outline btn-success"  asp-action="Create">ایجاد کاربر جدید</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>            
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>            
+            <th>
+                @Html.DisplayNameFor(model => model.CreateDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ModifiedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsAdmin)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsDelete)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>            
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>            
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModifiedDate)
+            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsAdmin)
+                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsDelete)
+            </td>
+            <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline btn-warning btn-sm">ویرایش</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline btn-info btn-sm">جزئیات</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline btn-danger btn-sm">خذف</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
