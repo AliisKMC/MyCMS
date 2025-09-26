@@ -13,6 +13,21 @@
 <table class="table">
     <thead>
         <tr>
+            <form asp-action="search" method="get">
+                <th class="text-left">
+                    جستجو :
+                </th>
+                <th colspan="4">
+                    <input type="search" name="param" class="form-control"
+                       placeholder="عبارت مورد نظر را وارد کنید" />
+                </th>
+            <th colspan="4">
+                <input type="submit" value="پیدا کن" class="btn btn-primary"  />
+                <a asp-action="Index" class="btn btn-info">همه</a>                       
+            </th>
+            </form>
+        </tr>
+        <tr>
             <th>
                 @Html.DisplayNameFor(model => model.UserName)
             </th>            
@@ -64,3 +79,21 @@
 }
     </tbody>
 </table>
+
+@if (ViewBag.PageCount > 1)
+{
+    <div class="col-sm-6">
+        <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
+            <ul class="pagination">
+                @for (int i = 1; i <= ViewBag.PageCount; i++)
+                {
+                    <li class="paginate_button @((ViewBag.PageId==i)?"active":"")"><a asp-area="Admin"
+                        asp-controller="Users"
+                    asp-action="Index"
+                    asp-route-PageId="@i">@i</a></li>
+
+                }
+            </ul>
+        </div>
+    </div>
+    }

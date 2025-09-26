@@ -25,9 +25,18 @@ namespace MyCMS.Areas.Admin.Controllers
         }
 
         // GET: Admin/Users
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int pageId = 1, int pageSize = 3)
         {
-            return View( _UserService.GetAll().ToList());
+            var list = _UserService.GetAllUsers(pageId, pageSize);
+            ViewBag.PageCount = _UserService.PageCount(pageSize);
+            ViewBag.PageId = pageId;
+            return View(list);
+        } 
+
+        public IActionResult Search(string param)
+        {
+            var FindList=_UserService.GetAllUsers(param).ToList();
+            return View("Index",FindList);
         }
 
         // GET: Admin/Users/Details/5

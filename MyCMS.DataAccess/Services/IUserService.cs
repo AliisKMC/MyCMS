@@ -9,6 +9,7 @@ namespace MyCMS.DataAccess.Services
 {
     public interface IUserService:IService<User>
     {
+        List<User> GetAllUsers(string search);
         bool IsExistEmail(string email);
         bool IsExistUsername(string userName);
         User GetUserByUsernameOrEmail(string usernameOrEmail);

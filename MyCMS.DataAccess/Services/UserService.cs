@@ -74,5 +74,24 @@ namespace MyCMS.DataAccess.Services
             _context.Update(entity);
             _context.SaveChanges();
         }
+
+        List<User> IUserService.GetAllUsers(string search)
+        {
+            return tblUser.Where(u=>u.UserName.Contains(search)||u.Email.Contains(search)).ToList();
+        }
+
+        IEnumerable<User> IService<User>.GetAllUsers(int pageId, int pageSize)
+        {
+            int skip = (pageId - 1) * pageSize;
+            return tblUser.OrderByDescending(u => u.CreateDate)
+                .Skip(skip)
+                .Take(pageSize)
+                .ToList();
+        }
+
+        public int PageCount(int pageSize)
+        {
+            return _context.Users.Count() / pageSize;
+        }
     }
 }
