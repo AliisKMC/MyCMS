@@ -47,7 +47,7 @@ namespace MyCMS.DataAccess.Services
             return query.ToList();
         }
 
-        public User GetById(int id)
+        public User GetById(int? id)
         {
             return tblUser.Find(id);
         }

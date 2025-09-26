@@ -7,7 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MyCMS.DataAccess.Data;
+using MyCMS.DataAccess.Services;
 using MyCMS.Models.Model;
+using MyCMS.Utilities.Security;
 
 namespace MyCMS.Areas.Admin.Controllers
 {
@@ -15,17 +17,17 @@ namespace MyCMS.Areas.Admin.Controllers
     [Authorize]
     public class UsersController : Controller
     {
-        private readonly MyDbContext _context;
+        private readonly IUserService _UserService;
 
-        public UsersController(MyDbContext context)
+        public UsersController(IUserService userService)
         {
-            _context = context;
+            _UserService = userService;
         }
 
         // GET: Admin/Users
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Users.ToListAsync());
+            return View( _UserService.GetAll().ToList());
         }
 
         // GET: Admin/Users/Details/5
@@ -36,8 +38,7 @@ namespace MyCMS.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var user = await _context.Users
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var user =  _UserService.GetById(id);                
             if (user == null)
             {
                 return NotFound();
@@ -57,12 +58,14 @@ namespace MyCMS.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UserName,Password,Email,IsAdmin,Id,CreateDate,ModifiedDate,IsDelete")] User user)
+        public async Task<IActionResult> Create([Bind("UserName,Password,Email,IsAdmin")] User user)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(user);
-                await _context.SaveChangesAsync();
+                user.IsDelete = false;
+                user.CreateDate = DateTime.Now;
+                user.Password = PasswordHasher.HashPassword(user.Password);
+                _UserService.Add(user);                               
                 return RedirectToAction(nameof(Index));
             }
             return View(user);
@@ -76,7 +79,7 @@ namespace MyCMS.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var user = await _context.Users.FindAsync(id);
+            var user = _UserService.GetById(id);
             if (user == null)
             {
                 return NotFound();
@@ -91,6 +94,7 @@ namespace MyCMS.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("UserName,Password,Email,IsAdmin,Id,CreateDate,ModifiedDate,IsDelete")] User user)
         {
+
             if (id != user.Id)
             {
                 return NotFound();
@@ -98,22 +102,8 @@ namespace MyCMS.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(user);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!UserExists(user.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                user.ModifiedDate = DateTime.Now;
+                _UserService.Update(user);
                 return RedirectToAction(nameof(Index));
             }
             return View(user);
@@ -127,8 +117,7 @@ namespace MyCMS.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var user = await _context.Users
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var user = _UserService.GetById(id);
             if (user == null)
             {
                 return NotFound();
@@ -142,19 +131,14 @@ namespace MyCMS.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var user = _UserService.GetById(id);
             if (user != null)
             {
-                _context.Users.Remove(user);
+                //userRepository.DeleteUser(user);
+                user.IsDelete = true;
+                _UserService.Update(user);
             }
-
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool UserExists(int id)
-        {
-            return _context.Users.Any(e => e.Id == id);
-        }
+        }        
     }
 }

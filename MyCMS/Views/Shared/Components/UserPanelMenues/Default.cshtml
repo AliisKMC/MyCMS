@@ -1,0 +1,17 @@
+﻿@if(User.Identity.IsAuthenticated)
+{
+    <div class="last-news-side border-radius">
+        <h2>دسترسی سریع</h2>
+        <hr />
+        <ul>
+            <li style="padding:5px">
+                <a asp-area="UserPanel" asp-controller="Home"
+                asp-action="Index">پنل کاربری شما</a>
+            </li>
+            <li style="padding:5px">
+                <a asp-area="UserPanel" asp-controller="Home"
+                   asp-action="ChangePassword">تغییر کلمه عبور</a>
+            </li>
+        </ul>
+    </div>
+}
