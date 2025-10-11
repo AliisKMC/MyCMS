@@ -101,9 +101,9 @@ namespace MyCMS.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("UserName,Password,Email,IsAdmin,Id,CreateDate,ModifiedDate,IsDelete")] User user)
+        public async Task<IActionResult> Edit(int id, string UserName, string Email,bool IsAdmin,bool IsDelete)
         {
-
+            User user= _UserService.GetById(id);
             if (id != user.Id)
             {
                 return NotFound();
@@ -111,6 +111,10 @@ namespace MyCMS.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
+                user.UserName = UserName;
+                user.Email = Email;
+                user.IsAdmin = IsAdmin;
+                user.IsDelete = IsDelete;
                 user.ModifiedDate = DateTime.Now;
                 _UserService.Update(user);
                 return RedirectToAction(nameof(Index));

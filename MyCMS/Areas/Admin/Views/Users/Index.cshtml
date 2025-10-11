@@ -59,10 +59,10 @@
                 @Html.DisplayFor(modelItem => item.Email)
             </td>            
             <td>
-                @Html.DisplayFor(modelItem => item.CreateDate)
+                @item.CreateDate.ToShamsi()
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ModifiedDate)
+                @item.ModifiedDate?.ToShamsi()
             </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.IsAdmin)
