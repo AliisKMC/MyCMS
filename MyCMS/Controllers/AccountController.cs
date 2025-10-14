@@ -30,14 +30,14 @@ namespace MyCMS.Controllers
             if(!ModelState.IsValid)
                 return View(vmLogin);
 
-            var user = _userService.GetUserByUsernameOrEmail(vmLogin.EmailOrUserName);
-            if (user == null)
+            var user1 = _userService.GetUserByUsernameOrEmail(vmLogin.EmailOrUserName);
+            if (user1 == null)
             {
                 ModelState.AddModelError("EmailOrUserName", "کاربری یافت نشد!");
                 return View(vmLogin);
             }
 
-            if(!PasswordHasher.VerifyHashedPassword(user.Password,vmLogin.Password))
+            if(!PasswordHasher.VerifyHashedPassword(user1.Password,vmLogin.Password))
             {
                 ModelState.AddModelError("EmailOrUserName", "کاربری یافت نشد!");
                 return View(vmLogin);
@@ -47,8 +47,9 @@ namespace MyCMS.Controllers
             //TODO Login
             List<Claim> claims = new List<Claim>()
             {
-                new Claim(ClaimTypes.Name,user.UserName),
-                new Claim("UserId",user.Id.ToString())
+                new Claim(ClaimTypes.Name,user1.UserName),
+                new Claim("UserId",user1.Id.ToString()),
+                new Claim("IsAdmin",user1.IsAdmin.ToString())
             };
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var principal = new ClaimsPrincipal(identity);

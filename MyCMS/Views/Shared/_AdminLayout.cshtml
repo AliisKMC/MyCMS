@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@{
+    if(bool.Parse(User.FindFirst("IsAdmin").Value)==false)
+    {
+        Context.Response.Redirect("/Account/Login");
+    }
+}
+<!DOCTYPE html>
 <html>
 
 <head>

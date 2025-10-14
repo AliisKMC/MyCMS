@@ -5,6 +5,12 @@
 
 <h2>ورود به سایت</h2>
 <hr />
+@{
+    if(User.Identity.IsAuthenticated)
+    {
+        <div class="alert alert-danger">شما دسترسی برای وارد شدن به این بخش را ندارید</div>
+    }
+}
 <form method="post">
     <div class="form-group">
         <label for="exampleInputEmail1">نام کاربری یا ایمیل</label>
