@@ -18,7 +18,7 @@ namespace MyCMS.DataAccess.Data
         }
 
         public DbSet<User> Users { get; set; }
-
+        public DbSet<PageGroup> PageGroups { get; set; }
 
     }
 }
