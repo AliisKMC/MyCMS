@@ -1,0 +1,57 @@
+﻿@model IEnumerable<MyCMS.Models.Model.PageGroup>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <a asp-action="Create">ایجاد گروه </a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.GroupTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreateDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ModifiedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsDelete)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.GroupTitle)
+            </td>
+            <td>
+                @item.CreateDate.ToShamsi();
+            </td>
+            <td>
+                    @item.ModifiedDate?.ToShamsi();
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsDelete)
+            </td>
+            <td>
+                    <a asp-action="Edit"
+                       class="btn btn-outline btn-warning btn-sm"
+                       asp-route-id="@item.Id">ویرایش</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id"
+                       class="btn btn-outline btn-info btn-sm">جزئیات</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id"
+                       class="btn btn-outline btn-danger btn-sm">حذف</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
