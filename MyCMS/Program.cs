@@ -26,6 +26,7 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddDbContext<MyDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IPageGroupService, PageGroupService>();
 
 var app = builder.Build();
 

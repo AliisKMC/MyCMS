@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<MyCMS.Models.Model.PageGroup>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "لیست گروه ها";
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -34,10 +34,10 @@
                 @Html.DisplayFor(modelItem => item.GroupTitle)
             </td>
             <td>
-                @item.CreateDate.ToShamsi();
+                @item.CreateDate.ToShamsi()
             </td>
             <td>
-                    @item.ModifiedDate?.ToShamsi();
+                    @item.ModifiedDate?.ToShamsi()
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.IsDelete)

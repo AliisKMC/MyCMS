@@ -10,7 +10,7 @@ namespace MyCMS.Models.Model
 {
     public class PageGroup : BaseEntity
     {
-        [Display(Name = "")]
+        [Display(Name = "نام گروه")]
         [Required(ErrorMessage = "{0} نمی تواند خالی باشد")]
         [MaxLength(200, ErrorMessage ="{0} نمیتواند بیشتر از {1} کارکتر باشد.")]
         public string GroupTitle{ get; set; }

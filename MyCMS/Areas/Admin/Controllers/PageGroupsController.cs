@@ -59,8 +59,10 @@ namespace MyCMS.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("GroupTitle,Id,CreateDate,ModifiedDate,IsDelete")] PageGroup pageGroup)
         {
-            if (ModelState.IsValid)
+           if (ModelState.IsValid)
             {
+                pageGroup.CreateDate = DateTime.Now;
+                pageGroup.IsDelete = false;
                 _context.Add(pageGroup);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -100,6 +102,7 @@ namespace MyCMS.Areas.Admin.Controllers
             {
                 try
                 {
+                    pageGroup.ModifiedDate = DateTime.Now;
                     _context.Update(pageGroup);
                     await _context.SaveChangesAsync();
                 }
