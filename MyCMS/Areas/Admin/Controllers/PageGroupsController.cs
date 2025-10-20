@@ -122,36 +122,13 @@ namespace MyCMS.Areas.Admin.Controllers
             return View(pageGroup);
         }
 
-        // GET: Admin/PageGroups/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            var group = _context.PageGroups.IgnoreQueryFilters()
+                .FirstOrDefault(g => g.Id == id);
+            _context.PageGroups.Remove(group);
+            _context.SaveChanges();
 
-            var pageGroup = await _context.PageGroups
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (pageGroup == null)
-            {
-                return NotFound();
-            }
-
-            return View(pageGroup);
-        }
-
-        // POST: Admin/PageGroups/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var pageGroup = await _context.PageGroups.FindAsync(id);
-            if (pageGroup != null)
-            {
-                _context.PageGroups.Remove(pageGroup);
-            }
-
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
