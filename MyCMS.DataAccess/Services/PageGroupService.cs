@@ -1,4 +1,6 @@
-﻿using MyCMS.Models.Model;
+﻿using Microsoft.EntityFrameworkCore;
+using MyCMS.DataAccess.Data;
+using MyCMS.Models.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +11,14 @@ namespace MyCMS.DataAccess.Services
 {
     public class PageGroupService : IPageGroupService
     {
+        private readonly MyDbContext _Context;
+        private readonly DbSet<PageGroup> tblPageGroups;
+        public PageGroupService(MyDbContext Context)
+        {
+             _Context=Context;
+            tblPageGroups= Context.PageGroups;
+        }
+
         public int Add(PageGroup entity)
         {
             throw new NotImplementedException();
@@ -26,7 +36,8 @@ namespace MyCMS.DataAccess.Services
 
         public IEnumerable<PageGroup> GetAll()
         {
-            throw new NotImplementedException();
+            IQueryable<PageGroup> query = tblPageGroups;
+            return query.ToList();
         }
 
         public IEnumerable<PageGroup> GetAllUsers(int pageId, int pageSize)

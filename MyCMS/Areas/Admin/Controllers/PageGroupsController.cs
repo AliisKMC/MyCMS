@@ -25,7 +25,7 @@ namespace MyCMS.Areas.Admin.Controllers
         // GET: Admin/PageGroups
         public async Task<IActionResult> Index()
         {
-            return View(await _context.PageGroups.ToListAsync());
+            return View(await _context.PageGroups.IgnoreQueryFilters().ToListAsync());
         }
 
         // GET: Admin/PageGroups/Details/5
@@ -78,7 +78,7 @@ namespace MyCMS.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var pageGroup = await _context.PageGroups.FindAsync(id);
+            var pageGroup = await _context.PageGroups.IgnoreQueryFilters().FirstOrDefaultAsync(m => m.Id == id.Value);
             if (pageGroup == null)
             {
                 return NotFound();

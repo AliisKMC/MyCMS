@@ -7,7 +7,7 @@
 <h1>@ViewData["Title"]</h1>
 
 <p>
-    <a asp-action="Create">ایجاد گروه </a>
+    <a class="btn btn-outline btn-success" onclick="create()">افزودن گروه جدید</a>
 </p>
 <table class="table">
     <thead>
@@ -43,9 +43,11 @@
                 @Html.DisplayFor(modelItem => item.IsDelete)
             </td>
             <td>
-                    <a asp-action="Edit"
+                    @* <a asp-action="Edit"
                        class="btn btn-outline btn-warning btn-sm"
-                       asp-route-id="@item.Id">ویرایش</a> |
+                       asp-route-id="@item.Id">ویرایش</a> | *@
+                    <a onclick="edit(@item.Id)"
+                       class="btn btn-outline btn-warning btn-sm">ویرایش</a> |
                     <a asp-action="Details" asp-route-id="@item.Id"
                        class="btn btn-outline btn-info btn-sm">جزئیات</a> |
                     <a onclick="Delete(@item.Id)"
@@ -64,5 +66,39 @@
                 $("#tr_"+id).hide('slow');
             });            
         }
+
+         function create()
+        {
+             $("#myModal").modal('show');
+            $("#modalTitle").html('افزودن گروه جدید');
+            $.get("/Admin/PageGroups/Create",function(data){
+                $("#bodyModal").html(data);
+            });
+        }
+
+         function edit(id)
+        {
+             $("#myModal").modal('show');
+            $("#modalTitle").html('ویرایش گروه');
+            $.get("/Admin/PageGroups/Edit/"+id,function(data){
+                $("#bodyModal").html(data);
+            });
+        }
+
     </script>
 }
+
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modalTitle">Modal title</h4>
+            </div>
+            <div class="modal-body" id="bodyModal">
+                <p>لطفا صبر کنید ...</p>
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

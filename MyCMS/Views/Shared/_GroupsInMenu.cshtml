@@ -1,0 +1,13 @@
+﻿@using MyCMS.DataAccess.Services
+@using MyCMS.Models.Model
+@model IEnumerable<PageGroup>
+@inject MyCMS.DataAccess.Services.IPageGroupService pageGroupService
+<li>
+    <span>گروه های خبری</span>
+    <ul>
+        @foreach (var item in pageGroupService.GetAll())
+        {
+            <li><a href="">@item.GroupTitle</a></li>
+        }
+    </ul>
+</li>
