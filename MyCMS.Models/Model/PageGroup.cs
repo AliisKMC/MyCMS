@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MyCMS.Models.Model;
 
 namespace MyCMS.Models.Model
 {
@@ -14,6 +15,8 @@ namespace MyCMS.Models.Model
         [Required(ErrorMessage = "{0} نمی تواند خالی باشد")]
         [MaxLength(200, ErrorMessage ="{0} نمیتواند بیشتر از {1} کارکتر باشد.")]
         public string GroupTitle{ get; set; }
+
+        public List<Page>? Pages { get; set; }      
 
     }
 }
