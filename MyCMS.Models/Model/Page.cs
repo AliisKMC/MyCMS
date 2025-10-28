@@ -42,6 +42,7 @@ namespace MyCMS.Models.Model
         public bool ShowInSlider { get; set; }
 
         [ForeignKey("GroupId")]
+        //[Display(Name = "گروه خبری مربوطه")]
         public PageGroup? PageGroup { get; set; }
     }
 }

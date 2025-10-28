@@ -1,0 +1,83 @@
+﻿@model IEnumerable<MyCMS.Models.Model.Page>
+
+@{
+    ViewData["Title"] = "لیست خبرها";    
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>    
+    <a class="btn btn-outline btn-success" asp-action="Create">افزود خبر جدید</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                گروه صفحه
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Visit)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.CreateDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ModifiedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsDelete)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShowInSlider)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+             <td>
+                    <img src="/PgaeImages/@item.ImageName" style="max-width: 150px" 
+                    class="img-thumbnail"/>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PageGroup.GroupTitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Visit)
+                </td>
+                <td>
+                    @item.CreateDate.ToShamsi()
+                </td>
+                <td>
+                    @item.ModifiedDate?.ToShamsi()
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsDelete)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShowInSlider)
+                </td>
+                <td>
+                    <a asp-action="Edit"
+                       class="btn btn-outline btn-warning btn-sm"
+                       asp-route-id="@item.Id">ویرایش</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id"
+                       class="btn btn-outline btn-info btn-sm">جزئیات</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id"
+                       class="btn btn-outline btn-danger btn-sm">حذف</a>
+                </td>
+        </tr>
+}
+    </tbody>
+</table>
