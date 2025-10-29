@@ -60,10 +60,16 @@ namespace MyCMS.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("GroupId,Title,ShortDescription,Content,Visit,imgNews,Tags,ShowInSlider,Id,CreateDate,ModifiedDate,IsDelete")] Page page)
+        public async Task<IActionResult> Create(Page page ,IFormFile imgNews)
         {
             if (ModelState.IsValid)
             {
+                page.ImageName = "nophoto.jpg";
+                if(imgNews != null)
+                {
+                    page.ImageName = imgNews.FileName;
+                }
+
                 page.CreateDate = DateTime.Now;
                 page.IsDelete = false;
                 page.Visit = 0;
