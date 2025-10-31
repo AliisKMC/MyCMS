@@ -67,7 +67,13 @@ namespace MyCMS.Areas.Admin.Controllers
                 page.ImageName = "nophoto.jpg";
                 if(imgNews != null)
                 {
-                    page.ImageName = imgNews.FileName;
+                    page.ImageName = Guid.NewGuid().ToString() + Path.GetExtension(imgNews.FileName);
+                    string strSavePath=Directory.GetCurrentDirectory()+"/wwwroot/PageImages" + page.ImageName;
+
+                    using (var stream = new FileStream(strSavePath, FileMode.Create))
+                    {
+                        imgNews.CopyTo(stream);
+                    }
                 }
 
                 page.CreateDate = DateTime.Now;
